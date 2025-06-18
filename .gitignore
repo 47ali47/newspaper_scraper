@@ -1,5 +1,4 @@
 # Stores variables that I don't want pushed onto GitHub
-
 .env
 venv/
 .venv/
