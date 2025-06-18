@@ -1,4 +1,5 @@
 # Stores variables that I don't want pushed onto GitHub
 .env
+.env.py
 venv/
 .venv/
