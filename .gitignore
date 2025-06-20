@@ -3,4 +3,7 @@
 .env.py
 venv/
 .venv/
+
+# Article PDFS too large for GitHub
 output.pdf
+palestine_exception_article.pdf
