@@ -28,7 +28,7 @@ def text_analyzer(text_input):
     # Chat with the Model, setting up LLM as a researcher (SystemMessage)
     # The newspaper text is inputted into the model (HumanMessage)
     messages = [
-        SystemMessage("You are a researcher looking for evidence, if it exists, of chilling effects and suppresion of pro-Palestine protests. Return in bullet points exact quotations of supporting evidence. Also return a brief summary of the text."),
+        SystemMessage("You are a researcher looking for evidence, if it exists, of chilling effects and suppression of pro-Palestine protests. Return in bullet points exact quotations of supporting evidence. Also return a brief summary of the text."),
         HumanMessage(text_input),
     ]
     # Save the response from LLM and print out content
