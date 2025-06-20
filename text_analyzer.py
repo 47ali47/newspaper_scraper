@@ -12,12 +12,15 @@ def text_analyzer(text_input):
     try:
         from dotenv import load_dotenv
         load_dotenv()
-    except ImportError:
-        pass
+        
+        key = os.environ.get("GOOGLE_API_KEY")
+        
+        if not key:
+            raise RuntimeError("GOOGLE_API_KEY is not set in the environment.")
 
-    # Use gemini API key, if .env doesn't work, we can manually enter it
-    if not os.environ.get("GOOGLE_API_KEY"):
-        os.environ["GOOGLE_API_KEY"] = getpass.getpass("Enter API key for Google Gemini: ")
+        os.environ["GOOGLE_API_KEY"] = os.environ.get("GOOGLE_API_KEY")
+    except ImportError:
+        print("error")
 
     # start an AI chat
     model = init_chat_model("gemini-2.0-flash", model_provider="google_genai")
@@ -25,9 +28,9 @@ def text_analyzer(text_input):
     # Chat with the Model, setting up LLM as a researcher (SystemMessage)
     # The newspaper text is inputted into the model (HumanMessage)
     messages = [
-        SystemMessage("You are a researcher looking for evidence, if it exists, of chilling effects and suppresion of pro-Palestine protesters"),
+        SystemMessage("You are a researcher looking for evidence, if it exists, of chilling effects and suppresion of pro-Palestine protests. Return in bullet points exact quotations of supporting evidence. Also return a brief summary of the text."),
         HumanMessage(text_input),
     ]
     # Save the response from LLM and print out content
     response = model.invoke(messages)
-    print(response)
+    print(response.content)
