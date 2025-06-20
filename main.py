@@ -14,7 +14,7 @@ def extract_text(pdf):
 
 if __name__ == "__main__":
     # PDF of newspaper is converted into a string with its text
-    extracted_text = extract_text("output.pdf")
+    extracted_text = extract_text("palestine_exception_article.pdf")
     # the text is analyzed by LLM acting as researcher
     text_analyzer(extracted_text)
 
