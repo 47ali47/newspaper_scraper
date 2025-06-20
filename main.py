@@ -3,6 +3,7 @@
 # chrome --headless --disable-gpu --print-to-pdf https://www.columbiaspectator.com/news/2025/06/16/khalils-first-direct-statement-to-the-court-released/
 
 from pypdf import PdfReader
+from text_analyzer import text_analyzer
 
 # Extracts text from the export PDF from the internet
 def extract_text(pdf):
@@ -12,8 +13,10 @@ def extract_text(pdf):
     return output
 
 if __name__ == "__main__":
-    # article = extract_text("output.pdf")
-    # print(article)
-    extract_text("output.pdf")
+    # PDF of newspaper is converted into a string with its text
+    extracted_text = extract_text("output.pdf")
+    # the text is analyzed by LLM acting as researcher
+    text_analyzer(extracted_text)
+
 
 
