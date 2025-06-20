@@ -4,7 +4,7 @@ from langchain.chat_models import init_chat_model
 from langchain_core.messages import HumanMessage, SystemMessage
 
 
-# Google Gemini LLM acts a researcher looking for evidence of chilling effect in the newspaper text
+# Google Gemini LLM acts as a researcher looking for evidence of chilling effect in the newspaper text
 
 def text_analyzer(text_input):
 
