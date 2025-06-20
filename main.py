@@ -3,7 +3,6 @@
 # chrome --headless --disable-gpu --print-to-pdf https://www.columbiaspectator.com/news/2025/06/16/khalils-first-direct-statement-to-the-court-released/
 
 from pypdf import PdfReader
-from fpdf import FPDF
 
 # Extracts text from the export PDF from the internet
 def extract_text(pdf):
