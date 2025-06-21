@@ -33,4 +33,4 @@ def text_analyzer(text_input):
     ]
     # Save the response from LLM and print out content
     response = model.invoke(messages)
-    print(response.content)
+    return response.content
