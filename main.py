@@ -48,6 +48,9 @@ def urlToPDF(
 if __name__ == "__main__":
     # important to have .pdf in the name of the otput
     urlToPDF(url="https://www.columbiaspectator.com/opinion/2024/05/16/the-palestine-exception/", output="article_1.pdf")
+    extracted_text = extract_text("article_1.pdf")
+    analyzed_text = text_analyzer(extracted_text)
+    print(analyzed_text)
 
     # PDF of newspaper is converted into a string with its text
     # extracted_text = extract_text("palestine_exception_article.pdf")
