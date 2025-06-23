@@ -9,7 +9,6 @@ from fpdf import FPDF
 from pypdf import PdfReader
 from text_analyzer import text_analyzer
 
-
 # Extracts text from the export PDF from the internet
 def extract_text(pdf):
     reader = PdfReader(pdf)
@@ -47,7 +46,8 @@ def urlToPDF(
 def text_to_pdf(text, output):
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Arial", size=12)
+    pdf.add_font("DejaVu", "", "/Users/anboli/Downloads/dejavu-fonts-ttf-2.37/ttf/DejaVuSansCondensed.ttf")
+    pdf.set_font("DejaVu", size=10)
 
     # Add the string content to the PDF
     pdf.multi_cell(0, 10, txt=text) # 0 for width means full page width, 10 for line height
@@ -63,18 +63,11 @@ def run_extraction(url, output):
     extracted_text += url
     # run LLM analysis on text
     analyzed_text = text_analyzer(extracted_text)
-    print(analyzed_text)
+    # print(analyzed_text)
     text_to_pdf(analyzed_text, output)
 
 if __name__ == "__main__":
     run_extraction("https://www.columbiaspectator.com/opinion/2024/05/16/the-palestine-exception/", "article_1.pdf")
-
-    
-    # urlToPDF(url="https://www.columbiaspectator.com/opinion/2024/05/16/the-palestine-exception/", output="article_1.pdf")
-    # extracted_text = extract_text("article_1.pdf")
-    # extracted_text += "https://www.columbiaspectator.com/opinion/2024/05/16/the-palestine-exception/"
-    # analyzed_text = text_analyzer(extracted_text)
-    # print(analyzed_text)
 
 
 
