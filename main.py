@@ -9,6 +9,7 @@ import argparse
 from pypdf import PdfReader
 from text_analyzer import text_analyzer
 
+
 # Extracts text from the export PDF from the internet
 def extract_text(pdf):
     reader = PdfReader(pdf)
@@ -23,7 +24,7 @@ def urlToPDF(
         chrome_path: str = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"):
     parser = argparse.ArgumentParser(
     )
-    
+
     cmd = [
         chrome_path,
         "--headless",
@@ -31,8 +32,6 @@ def urlToPDF(
         f"--print-to-pdf={output}",
         url
     ]
-
-    print("CMDDDD", cmd)
 
     try:
         result = subprocess.run(
@@ -43,7 +42,11 @@ def urlToPDF(
         )
     except subprocess.CalledProcessError:
         print("Failed to generate PDF")
-    
+
+def save_text_to_pdf(text: str, filename: str):
+    html = f"<pre>{text}</pre>"
+    HTML(string=html.write_pdf(filename))
+
 
 if __name__ == "__main__":
     # important to have .pdf in the name of the otput
@@ -51,11 +54,10 @@ if __name__ == "__main__":
     extracted_text = extract_text("article_1.pdf")
     analyzed_text = text_analyzer(extracted_text)
     print(analyzed_text)
+    save_text_to_pdf(analyzed_text, "article_1_cleaned.pdf")
 
-    # PDF of newspaper is converted into a string with its text
-    # extracted_text = extract_text("palestine_exception_article.pdf")
-    # the text is analyzed by LLM acting as researcher
-    # print(text_analyzer(extracted_text))
+
+
 
     
 
