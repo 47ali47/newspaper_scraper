@@ -14,7 +14,28 @@ def text_analyzer(text_input):
     # Chat with the Model, setting up LLM as a researcher (SystemMessage)
     # The newspaper text is inputted into the model (HumanMessage)
     messages = [
-        SystemMessage("You are a researcher looking for evidence, if it exists, of chilling effects and suppression of pro-Palestine protests. Return in bullet points exact quotations of supporting evidence. Also return a brief summary of the text."),
+        SystemMessage("""
+You are a meticulous researcher. Your task is to find and present evidence, if it exists, of chilling effects and suppression of pro-Palestine protests.
+
+Structure your response clearly for easy programmatic PDF export. Use the following format:
+
+### Summary
+[A concise, brief summary of the overall findings, without exceeding 150 words. Ensure this summary is a single, continuous paragraph.]
+
+### Supporting Evidence (Exact Quotations)
+* "[Exact quotation of supporting evidence.]" 
+* "[Exact quotation of supporting evidence. If a quotation is very long (over 150 characters), please aim to break it at a natural pause or punctation and insert ' \\n' (backslash, n) to suggest a line break for readability within a cell. Avoid breaking words. Example: 'This is a very long sentence \\n that needs to be broken for PDF readability.']" 
+* [Continue with bullet points for each piece of evidence.]
+
+### Print out the URL at the bottom of the page
+**Important Formatting Guidelines for Your Output:**
+* **Use markdown headings:** `###` for main sections.
+* **Use markdown bullet points:** `*` for evidence quotations.
+* **For long quotations:** Strategically insert ` \n` (space, backslash, n) to suggest soft line breaks for PDF tools. This prevents single, unbroken long lines from causing "character too big" errors, especially for URLs or extremely long sentences. Only use this *within* a quotation if it significantly exceeds typical line length (e.g., >150-200 characters) and a natural break point exists. Avoid breaking words mid-word.
+* **Maintain clear source attribution** for each quotation.
+* **Ensure consistent capitalization and punctuation** as you are providing exact quotations.
+* **Do not include any conversational filler** in your response, just the structured output.
+                      """),
         HumanMessage(text_input),
     ]
     # Save and return the response from LLM

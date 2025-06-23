@@ -5,7 +5,7 @@
 # Imports to convert shell code into python code
 import subprocess
 import argparse
-
+from fpdf import FPDF
 from pypdf import PdfReader
 from text_analyzer import text_analyzer
 
@@ -43,18 +43,38 @@ def urlToPDF(
     except subprocess.CalledProcessError:
         print("Failed to generate PDF")
 
-def save_text_to_pdf(text: str, filename: str):
-    html = f"<pre>{text}</pre>"
-    HTML(string=html.write_pdf(filename))
+# text to pdf
+def text_to_pdf(text, output):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
 
+    # Add the string content to the PDF
+    pdf.multi_cell(0, 10, txt=text) # 0 for width means full page width, 10 for line height
+    # Save the PDF
+    pdf.output(output)
+    print("PDF created successfully with the string content.")
 
-if __name__ == "__main__":
-    # important to have .pdf in the name of the otput
-    urlToPDF(url="https://www.columbiaspectator.com/opinion/2024/05/16/the-palestine-exception/", output="article_1.pdf")
-    extracted_text = extract_text("article_1.pdf")
+# important to have .pdf in the name of the otput
+def run_extraction(url, output):
+    urlToPDF(url, output)
+    extracted_text = extract_text(output)
+    # add the URL into the final PDF output for cross-checking
+    extracted_text += url
+    # run LLM analysis on text
     analyzed_text = text_analyzer(extracted_text)
     print(analyzed_text)
-    save_text_to_pdf(analyzed_text, "article_1_cleaned.pdf")
+    text_to_pdf(analyzed_text, output)
+
+if __name__ == "__main__":
+    run_extraction("https://www.columbiaspectator.com/opinion/2024/05/16/the-palestine-exception/", "article_1.pdf")
+
+    
+    # urlToPDF(url="https://www.columbiaspectator.com/opinion/2024/05/16/the-palestine-exception/", output="article_1.pdf")
+    # extracted_text = extract_text("article_1.pdf")
+    # extracted_text += "https://www.columbiaspectator.com/opinion/2024/05/16/the-palestine-exception/"
+    # analyzed_text = text_analyzer(extracted_text)
+    # print(analyzed_text)
 
 
 
