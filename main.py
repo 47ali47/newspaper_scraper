@@ -46,6 +46,7 @@ def urlToPDF(
 def text_to_pdf(text, output):
     pdf = FPDF()
     pdf.add_page()
+    # add in unicode to deal with weird characters
     pdf.add_font("DejaVu", "", "/Users/anboli/Downloads/dejavu-fonts-ttf-2.37/ttf/DejaVuSansCondensed.ttf")
     pdf.set_font("DejaVu", size=10)
 
